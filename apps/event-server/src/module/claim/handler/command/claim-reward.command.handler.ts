@@ -16,6 +16,9 @@ import { EventService } from '../../../event/service/event.service';
 import { EventConditionService } from '../../../event/service/event-condition.service';
 import { EventConditionRepositoryPort } from '../../../port/repository/event-condition.repository.port';
 import { ConditionValidationService } from '../../../event/service/condition-validation.service';
+import { VerifyTypeEnum } from '../../../../shared/enum/verify-type.enum';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { GIVE_REWARD } from '../../../../shared/constant/on-event-name.constants';
 
 @Injectable()
 export class ClaimRewardCommandHandler {
@@ -32,6 +35,7 @@ export class ClaimRewardCommandHandler {
     private readonly eventService: EventService,
     private readonly claimService: ClaimService,
     private readonly conditionValidationService: ConditionValidationService,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   async execute(
@@ -80,10 +84,14 @@ export class ClaimRewardCommandHandler {
         claim.setStatus(ClaimStateEnum.FAILED);
         claim.setReason(e.message);
       }
+      await this.claimRepository.saveOne(claim);
 
-      console.log(claim);
-
-      return this.claimRepository.saveOne(claim);
+      if (eventCondition.verifyType === VerifyTypeEnum.AUTO) {
+        rewardIds.forEach((id) =>
+          this.eventEmitter.emit(GIVE_REWARD, { userId, rewardId: id }),
+        );
+      }
+      return;
     } catch (e) {
       const claim = ClaimEntity.create({
         userId,
