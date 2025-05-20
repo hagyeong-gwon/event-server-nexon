@@ -17,6 +17,7 @@ gateway-server swagger : http://localhost:30000/docs
   - 일반 사용자 (role : USER)
     - /signUp - 회원가입
     - POST /api/claim - 보상 요청
+      - VerifyType == AUTO 인 경우 보상 지금 작업 (GIVE_REWARD) 실행
     - GET /api/claim - 본인 보상 요청 이력 확인
   - 관리자 (role : OPERATOR, ADMIN)
     - /signUp - 회원가입

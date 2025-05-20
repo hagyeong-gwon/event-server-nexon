@@ -34,7 +34,6 @@ export class AuthGrpcService implements OnModuleInit {
       this.logger.log('grpc getInviteCountInfo req', { input: response });
       return response.count;
     } catch (e) {
-      console.log(e);
       throw new BadRequestException(e);
     }
   }

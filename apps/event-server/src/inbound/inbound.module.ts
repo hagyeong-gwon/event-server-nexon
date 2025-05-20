@@ -4,6 +4,7 @@ import { RewardAdminController } from './reward/reward.admin.controller';
 import { DomainModule } from '../module/domain.module';
 import { ClaimController } from './claim/claim.controller';
 import { ClaimAdminController } from './claim/claim.admin.controller';
+import { RewardMessageListener } from './reward/reward-message.listener';
 
 @Module({
   imports: [DomainModule],
@@ -13,6 +14,6 @@ import { ClaimAdminController } from './claim/claim.admin.controller';
     ClaimController,
     ClaimAdminController,
   ],
-  providers: [],
+  providers: [RewardMessageListener],
 })
 export class InboundModule {}

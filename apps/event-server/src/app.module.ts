@@ -4,6 +4,7 @@ import { MongoModule } from './base/mongo/mongo.module';
 import { InboundModule } from './inbound/inbound.module';
 import { DomainModule } from './module/domain.module';
 import { OutboundModule } from './outbound/outbound.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 @Module({
   imports: [
     ConfigCustomModule,
@@ -11,6 +12,7 @@ import { OutboundModule } from './outbound/outbound.module';
     InboundModule,
     OutboundModule,
     DomainModule,
+    EventEmitterModule.forRoot(),
   ],
 })
 export class AppModule {}

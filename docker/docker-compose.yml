@@ -53,8 +53,6 @@ services:
     ports:
       - "30002:30002"
       - "50051:50051"
-volumes:
-  mongo:
 
 secrets:
   root-username:
