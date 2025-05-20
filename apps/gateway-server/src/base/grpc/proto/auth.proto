@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package authorization;
+
+service AuthService {
+  rpc Verify (Empty) returns (ValidateResponse) {}
+}
+
+message Empty {
+
+}
+
+message ValidateResponse {
+  int32 id = 1;
+  string type = 2;
+  string name = 3;
+  string nickname = 4;
+  string email = 5;
+}

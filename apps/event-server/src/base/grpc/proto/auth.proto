@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService {
+  rpc GetInviteCount(GetInviteCountInput) returns (GetInviteCountResponse) {}
+}
+
+message GetInviteCountInput {
+    string userId = 1;
+}
+
+message GetInviteCountResponse {
+  int64 count = 1;
+}
+
+message Empty {
+
+}
+
+message ValidateResponse {
+  int32 id = 1;
+  string type = 2;
+  string name = 3;
+  string nickname = 4;
+  string email = 5;
+}
